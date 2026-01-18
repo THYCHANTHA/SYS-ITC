@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ការចុះឈ្មោះ - ITC SMS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Battambang:wght@400;700&display=swap" rel="stylesheet">
+    <link href="css/notifications.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Battambang', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="min-h-screen flex flex-col">
+        <header class="bg-blue-600 text-white shadow-lg">
+            <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/f/f7/Institute_of_Technology_of_Cambodia_logo.png?20140922081716" alt="ITC Logo" class="h-12 w-12 bg-white rounded-full p-1">
+                    <div>
+                        <h1 class="text-xl font-bold">វិទ្យាស្ថានបច្ចេកវិទ្យាកម្ពុជា</h1>
+                        <p class="text-sm opacity-90">ប្រព័ន្ធគ្រប់គ្រងទិន្នន័យនិស្សិត</p>
+                    </div>
+                </div>
+                <nav>
+                    <ul class="flex space-x-6">
+                        <li><a href="index.html" class="hover:text-blue-200 transition font-bold">ផ្ទាំងគ្រប់គ្រង</a></li>
+                        <li><a href="students.html" class="hover:text-blue-200 transition font-bold">និស្សិត</a></li>
+                        <li><a href="courses.html" class="hover:text-blue-200 transition font-bold">មុខវិជ្ជា</a></li>
+                        <li><a href="lecturers.html" class="hover:text-blue-200 transition font-bold">សាស្ត្រាចារ្យ</a></li>
+                        <li><a href="schedule.html" class="hover:text-blue-200 transition font-bold">កាលវិភាគ</a></li>
+                        <li><a href="exams.html" class="hover:text-blue-200 transition font-bold">ការប្រឡង</a></li>
+                        <li><a href="assignments.html" class="hover:text-blue-200 transition font-bold">កិច្ចការ</a></li>
+                        <li><a href="attendance.html" class="hover:text-blue-200 transition font-bold">វត្តមាន</a></li>
+                        <li><a href="enrollment.html" class="hover:text-blue-200 transition font-bold border-b-2 border-white">ការចុះឈ្មោះ</a></li>
+                        <li><a href="grades.html" class="hover:text-blue-200 transition font-bold">ពិន្ទុ</a></li>
+                        <li><a href="fees.html" class="hover:text-blue-200 transition font-bold">ហិរញ្ញវត្ថុ</a></li>
+                        <li><a href="messages.html" class="hover:text-blue-200 transition font-bold">សារ</a></li>
+                        <li><a href="documents.html" class="hover:text-blue-200 transition font-bold">ឯកសារ</a></li>
+                        <li><a href="departments.html" class="hover:text-blue-200 transition font-bold">ដេប៉ាតឺម៉ង់</a></li>
+                        <li><a href="settings.html" class="hover:text-blue-200 transition font-bold">ការកំណត់</a></li>
+                        <li><a href="#" id="logout-btn" class="hover:text-red-200 transition font-bold">ចាកចេញ</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <main class="flex-grow container mx-auto px-4 py-8">
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center flex-wrap gap-4">
+                    <h2 class="text-lg font-bold text-gray-800">ការចុះឈ្មោះចូលរៀន</h2>
+                    <div class="flex gap-4 flex-wrap">
+                        <select id="period-filter" class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <!-- Populated by JS -->
+                        </select>
+                        <button id="add-enrollment-btn" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md text-sm transition flex items-center font-bold">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                            </svg>
+                            ចុះឈ្មោះថ្មី
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-gray-50 text-gray-600 text-sm uppercase tracking-wider font-bold">
+                                <th class="px-6 py-3 border-b">និស្សិត</th>
+                                <th class="px-6 py-3 border-b">មុខវិជ្ជា</th>
+                                <th class="px-6 py-3 border-b">សាស្ត្រាចារ្យ</th>
+                                <th class="px-6 py-3 border-b">ស្ថានភាព</th>
+                                <th class="px-6 py-3 border-b admin-only">សកម្មភាព</th>
+                            </tr>
+                        </thead>
+                        <tbody id="enrollment-table-body" class="text-gray-700 text-sm">
+                            <tr>
+                                <td colspan="5" class="px-6 py-4 text-center text-gray-500">កំពុងផ្ទុកទិន្នន័យ...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Enrollment Modal -->
+    <div id="enrollment-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden overflow-y-auto h-full w-full z-50">
+        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+            <div class="mt-3 text-center">
+                <h3 class="text-lg leading-6 font-bold text-gray-900" id="modal-title">ចុះឈ្មោះចូលរៀន</h3>
+                <form id="enrollment-form" class="mt-4 text-left">
+                    
+                    <div class="mb-4 admin-only">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">និស្សិត</label>
+                        <select id="enroll-student" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                            <!-- Populated by JS -->
+                        </select>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">ឆ្នាំសិក្សា</label>
+                        <select id="enroll-period" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                            <!-- Populated by JS -->
+                        </select>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">មុខវិជ្ជា</label>
+                        <select id="enroll-offering" required class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                            <option value="">ជ្រើសរើសមុខវិជ្ជា</option>
+                        </select>
+                    </div>
+
+                    <div class="flex items-center justify-between mt-6">
+                        <button type="button" id="close-modal" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">បោះបង់</button>
+                        <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">ចុះឈ្មោះ</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/notifications.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/enrollment.js"></script>
+</body>
+</html>

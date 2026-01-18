@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ដេប៉ាតឺម៉ង់ - ITC SMS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Battambang:wght@400;700&display=swap" rel="stylesheet">
+    <link href="css/notifications.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Battambang', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="min-h-screen flex flex-col">
+        <!-- Header -->
+        <header class="bg-blue-600 text-white shadow-lg">
+            <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/f/f7/Institute_of_Technology_of_Cambodia_logo.png?20140922081716" alt="ITC Logo" class="h-12 w-12 bg-white rounded-full p-1">
+                    <div>
+                        <h1 class="text-xl font-bold">វិទ្យាស្ថានបច្ចេកវិទ្យាកម្ពុជា</h1>
+                        <p class="text-sm opacity-90">ប្រព័ន្ធគ្រប់គ្រងទិន្នន័យនិស្សិត</p>
+                    </div>
+                </div>
+                <nav>
+                    <ul class="flex space-x-6">
+                        <li><a href="index.html" class="hover:text-blue-200 transition font-bold">ផ្ទាំងគ្រប់គ្រង</a></li>
+                        <li><a href="students.html" class="hover:text-blue-200 transition font-bold">និស្សិត</a></li>
+                        <li><a href="courses.html" class="hover:text-blue-200 transition font-bold">មុខវិជ្ជា</a></li>
+                        <li><a href="lecturers.html" class="hover:text-blue-200 transition font-bold">សាស្ត្រាចារ្យ</a></li>
+                        <li><a href="schedule.html" class="hover:text-blue-200 transition font-bold">កាលវិភាគ</a></li>
+                        <li><a href="exams.html" class="hover:text-blue-200 transition font-bold">ការប្រឡង</a></li>
+                        <li><a href="assignments.html" class="hover:text-blue-200 transition font-bold">កិច្ចការ</a></li>
+                        <li><a href="attendance.html" class="hover:text-blue-200 transition font-bold">វត្តមាន</a></li>
+                        <li><a href="enrollment.html" class="hover:text-blue-200 transition font-bold">ការចុះឈ្មោះ</a></li>
+                        <li><a href="grades.html" class="hover:text-blue-200 transition font-bold">ពិន្ទុ</a></li>
+                        <li><a href="fees.html" class="hover:text-blue-200 transition font-bold">ហិរញ្ញវត្ថុ</a></li>
+                        <li><a href="messages.html" class="hover:text-blue-200 transition font-bold">សារ</a></li>
+                        <li><a href="documents.html" class="hover:text-blue-200 transition font-bold">ឯកសារ</a></li>
+                        <li><a href="departments.html" class="hover:text-blue-200 transition font-bold border-b-2 border-white">ដេប៉ាតឺម៉ង់</a></li>
+                        <li><a href="settings.html" class="hover:text-blue-200 transition font-bold">ការកំណត់</a></li>
+                        <li><a href="#" id="logout-btn" class="hover:text-red-200 transition font-bold">ចាកចេញ</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-grow container mx-auto px-4 py-8">
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+                    <h2 class="text-lg font-bold text-gray-800">បញ្ជីដេប៉ាតឺម៉ង់</h2>
+                    <button id="add-dept-btn" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm transition flex items-center font-bold admin-only">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                        </svg>
+                        បន្ថែមដេប៉ាតឺម៉ង់
+                    </button>
+                </div>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-gray-50 text-gray-600 text-sm uppercase tracking-wider font-bold">
+                                <th class="px-6 py-3 border-b">កូដ</th>
+                                <th class="px-6 py-3 border-b">ឈ្មោះដេប៉ាតឺម៉ង់</th>
+                                <th class="px-6 py-3 border-b">ចំនួននិស្សិត</th>
+                                <th class="px-6 py-3 border-b admin-only">សកម្មភាព</th>
+                            </tr>
+                        </thead>
+                        <tbody id="dept-table-body" class="text-gray-700 text-sm">
+                            <tr>
+                                <td colspan="4" class="px-6 py-4 text-center text-gray-500">កំពុងផ្ទុកទិន្នន័យ...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add/Edit Department Modal -->
+    <div id="dept-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden overflow-y-auto h-full w-full z-50">
+        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+            <div class="mt-3 text-center">
+                <h3 class="text-lg leading-6 font-bold text-gray-900" id="modal-title">បន្ថែមដេប៉ាតឺម៉ង់ថ្មី</h3>
+                <form id="dept-form" class="mt-4 text-left">
+                    <input type="hidden" id="dept-id">
+                    
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">កូដដេប៉ាតឺម៉ង់</label>
+                        <input type="text" id="dept-code" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="GIC, GEE, GCI">
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">ឈ្មោះដេប៉ាតឺម៉ង់</label>
+                        <input type="text" id="dept-name" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Génie Informatique et Communication">
+                    </div>
+
+                    <div class="flex items-center justify-between mt-6">
+                        <button type="button" id="close-modal" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                            បោះបង់
+                        </button>
+                        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                            រក្សាទុក
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/notifications.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/departments.js"></script>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ការកំណត់ - ITC SMS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Battambang:wght@400;700&display=swap" rel="stylesheet">
+    <link href="css/notifications.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Battambang', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="min-h-screen flex flex-col">
+        <!-- Header -->
+        <header class="bg-blue-600 text-white shadow-lg">
+            <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/f/f7/Institute_of_Technology_of_Cambodia_logo.png?20140922081716" alt="ITC Logo" class="h-12 w-12 bg-white rounded-full p-1">
+                    <div>
+                        <h1 class="text-xl font-bold">វិទ្យាស្ថានបច្ចេកវិទ្យាកម្ពុជា</h1>
+                        <p class="text-sm opacity-90">ប្រព័ន្ធគ្រប់គ្រងទិន្នន័យនិស្សិត</p>
+                    </div>
+                </div>
+                <nav>
+                    <ul class="flex space-x-6">
+                        <li><a href="index.html" class="hover:text-blue-200 transition font-bold">ផ្ទាំងគ្រប់គ្រង</a></li>
+                        <li><a href="students.html" class="hover:text-blue-200 transition font-bold">និស្សិត</a></li>
+                        <li><a href="courses.html" class="hover:text-blue-200 transition font-bold">មុខវិជ្ជា</a></li>
+                        <li><a href="lecturers.html" class="hover:text-blue-200 transition font-bold">សាស្ត្រាចារ្យ</a></li>
+                        <li><a href="schedule.html" class="hover:text-blue-200 transition font-bold">កាលវិភាគ</a></li>
+                        <li><a href="exams.html" class="hover:text-blue-200 transition font-bold">ការប្រឡង</a></li>
+                        <li><a href="assignments.html" class="hover:text-blue-200 transition font-bold">កិច្ចការ</a></li>
+                        <li><a href="attendance.html" class="hover:text-blue-200 transition font-bold">វត្តមាន</a></li>
+                        <li><a href="enrollment.html" class="hover:text-blue-200 transition font-bold">ការចុះឈ្មោះ</a></li>
+                        <li><a href="grades.html" class="hover:text-blue-200 transition font-bold">ពិន្ទុ</a></li>
+                        <li><a href="fees.html" class="hover:text-blue-200 transition font-bold">ហិរញ្ញវត្ថុ</a></li>
+                        <li><a href="messages.html" class="hover:text-blue-200 transition font-bold">សារ</a></li>
+                        <li><a href="documents.html" class="hover:text-blue-200 transition font-bold">ឯកសារ</a></li>
+                        <li><a href="departments.html" class="hover:text-blue-200 transition font-bold">ដេប៉ាតឺម៉ង់</a></li>
+                        <li><a href="settings.html" class="hover:text-blue-200 transition font-bold border-b-2 border-white">ការកំណត់</a></li>
+                        <li><a href="#" id="logout-btn" class="hover:text-red-200 transition font-bold">ចាកចេញ</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-grow container mx-auto px-4 py-8">
+            <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-md overflow-hidden p-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">ការកំណត់គណនី</h2>
+                
+                <form class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700">ឈ្មោះអ្នកប្រើប្រាស់</label>
+                        <input type="text" value="admin" disabled class="mt-1 block w-full bg-gray-100 border border-gray-300 rounded-md shadow-sm py-2 px-3 sm:text-sm">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700">ផ្លាស់ប្តូរពាក្យសម្ងាត់</label>
+                        <input type="password" placeholder="ពាក្យសម្ងាត់បច្ចុប្បន្ន" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                        <input type="password" placeholder="ពាក្យសម្ងាត់ថ្មី" class="mt-2 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                    </div>
+
+                    <div class="pt-4">
+                        <button type="button" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                            រក្សាទុក
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+    <script src="js/notifications.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const role = localStorage.getItem('role');
+            const usernameInput = document.querySelector('input[type="text"]');
+            
+            if (role === 'student') {
+                // Fetch student data to show their name
+                const token = localStorage.getItem('token');
+                fetch('/api/students', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                })
+                .then(res => res.json())
+                .then(students => {
+                    if (students.length > 0) {
+                        const me = students[0];
+                        usernameInput.value = `${me.last_name} ${me.first_name} (${me.student_id_card})`;
+                    }
+                })
+                .catch(err => console.error(err));
+            } else {
+                usernameInput.value = 'Administrator';
+            }
+
+            // Handle password change
+            const saveBtn = document.querySelector('button.bg-blue-600');
+            const passwordInputs = document.querySelectorAll('input[type="password"]');
+            
+            if (saveBtn && passwordInputs.length >= 2) {
+                saveBtn.addEventListener('click', async (e) => {
+                    e.preventDefault();
+                    
+                    const currentPassword = passwordInputs[0].value;
+                    const newPassword = passwordInputs[1].value;
+                    
+                    if (!currentPassword || !newPassword) {
+                        toast.warning('សូមបំពេញពាក្យសម្ងាត់ទាំងពីរ');
+                        return;
+                    }
+
+                    if (newPassword.length < 6) {
+                        toast.warning('ពាក្យសម្ងាត់ថ្មីត្រូវតែមានយ៉ាងហោចណាស់ 6 តួអក្សរ');
+                        return;
+                    }
+
+                    const token = localStorage.getItem('token');
+                    try {
+                        const response = await fetch('/api/auth/change-password', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${token}`
+                            },
+                            body: JSON.stringify({ currentPassword, newPassword })
+                        });
+
+                        const data = await response.json();
+
+                        if (response.ok) {
+                            toast.success('ផ្លាស់ប្តូរពាក្យសម្ងាត់បានជោគជ័យ!');
+                            passwordInputs[0].value = '';
+                            passwordInputs[1].value = '';
+                        } else {
+                            toast.error('កំហុស: ' + data.error);
+                        }
+                    } catch (error) {
+                        toast.error('មានបញ្ហាក្នុងការផ្លាស់ប្តូរពាក្យសម្ងាត់');
+                        console.error(error);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

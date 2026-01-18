@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ប្រវត្តិរូបនិស្សិត - ITC SMS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Battambang:wght@400;700&display=swap" rel="stylesheet">
+    <link href="css/notifications.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Battambang', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="min-h-screen flex flex-col">
+        <header class="bg-blue-600 text-white shadow-lg">
+            <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/f/f7/Institute_of_Technology_of_Cambodia_logo.png?20140922081716" alt="ITC Logo" class="h-12 w-12 bg-white rounded-full p-1">
+                    <div>
+                        <h1 class="text-xl font-bold">វិទ្យាស្ថានបច្ចេកវិទ្យាកម្ពុជា</h1>
+                        <p class="text-sm opacity-90">ប្រព័ន្ធគ្រប់គ្រងទិន្នន័យនិស្សិត</p>
+                    </div>
+                </div>
+                <nav>
+                    <ul class="flex space-x-6">
+                        <li><a href="index.html" class="hover:text-blue-200 transition font-bold">ផ្ទាំងគ្រប់គ្រង</a></li>
+                        <li><a href="students.html" class="hover:text-blue-200 transition font-bold border-b-2 border-white">និស្សិត</a></li>
+                        <li><a href="courses.html" class="hover:text-blue-200 transition font-bold">មុខវិជ្ជា</a></li>
+                        <li><a href="lecturers.html" class="hover:text-blue-200 transition font-bold">សាស្ត្រាចារ្យ</a></li>
+                        <li><a href="schedule.html" class="hover:text-blue-200 transition font-bold">កាលវិភាគ</a></li>
+                        <li><a href="exams.html" class="hover:text-blue-200 transition font-bold">ការប្រឡង</a></li>
+                        <li><a href="assignments.html" class="hover:text-blue-200 transition font-bold">កិច្ចការ</a></li>
+                        <li><a href="attendance.html" class="hover:text-blue-200 transition font-bold">វត្តមាន</a></li>
+                        <li><a href="enrollment.html" class="hover:text-blue-200 transition font-bold">ការចុះឈ្មោះ</a></li>
+                        <li><a href="grades.html" class="hover:text-blue-200 transition font-bold">ពិន្ទុ</a></li>
+                        <li><a href="fees.html" class="hover:text-blue-200 transition font-bold">ហិរញ្ញវត្ថុ</a></li>
+                        <li><a href="messages.html" class="hover:text-blue-200 transition font-bold">សារ</a></li>
+                        <li><a href="documents.html" class="hover:text-blue-200 transition font-bold">ឯកសារ</a></li>
+                        <li><a href="departments.html" class="hover:text-blue-200 transition font-bold">ដេប៉ាតឺម៉ង់</a></li>
+                        <li><a href="settings.html" class="hover:text-blue-200 transition font-bold">ការកំណត់</a></li>
+                        <li><a href="#" id="logout-btn" class="hover:text-red-200 transition font-bold">ចាកចេញ</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <main class="flex-grow container mx-auto px-4 py-8">
+            <div class="mb-6">
+                <a href="students.html" class="text-blue-600 hover:text-blue-800 font-bold">← ត្រឡប់ទៅបញ្ជីនិស្សិត</a>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <!-- Header -->
+                <div class="bg-blue-600 p-6 text-white flex items-center">
+                    <div class="h-24 w-24 bg-white rounded-full flex items-center justify-center text-blue-600 text-3xl font-bold mr-6">
+                        <span id="profile-initials">--</span>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-bold" id="profile-name">Loading...</h2>
+                        <p class="text-blue-100" id="profile-id">ID: ...</p>
+                        <p class="text-blue-100" id="profile-dept">Department: ...</p>
+                    </div>
+                </div>
+
+                <!-- Tabs -->
+                <div class="flex border-b">
+                    <button class="px-6 py-3 font-bold text-blue-600 border-b-2 border-blue-600 focus:outline-none tab-btn" data-tab="info">ព័ត៌មានផ្ទាល់ខ្លួន</button>
+                    <button class="px-6 py-3 font-bold text-gray-600 hover:text-blue-600 focus:outline-none tab-btn" data-tab="academics">ការសិក្សា (Academics)</button>
+                    <button class="px-6 py-3 font-bold text-gray-600 hover:text-blue-600 focus:outline-none tab-btn" data-tab="finance">ហិរញ្ញវត្ថុ (Finance)</button>
+                </div>
+
+                <!-- Content -->
+                <div class="p-6">
+                    <!-- Info Tab -->
+                    <div id="tab-info" class="tab-content">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <h3 class="font-bold text-gray-700 mb-2 border-b pb-1">Personal Details</h3>
+                                <p><span class="font-bold w-32 inline-block">Gender:</span> <span id="info-gender">...</span></p>
+                                <p><span class="font-bold w-32 inline-block">DOB:</span> <span id="info-dob">...</span></p>
+                                <p><span class="font-bold w-32 inline-block">Phone:</span> <span id="info-phone">...</span></p>
+                                <p><span class="font-bold w-32 inline-block">Email:</span> <span id="info-email">...</span></p>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-gray-700 mb-2 border-b pb-1">Academic Info</h3>
+                                <p><span class="font-bold w-32 inline-block">Generation:</span> <span id="info-gen">...</span></p>
+                                <p><span class="font-bold w-32 inline-block">Year:</span> <span id="info-year">...</span></p>
+                                <p><span class="font-bold w-32 inline-block">Status:</span> <span class="text-green-600 font-bold">Active</span></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Academics Tab -->
+                    <div id="tab-academics" class="tab-content hidden">
+                        <h3 class="font-bold text-gray-700 mb-4">Current Enrollments & Grades</h3>
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-gray-50 border-b">
+                                    <th class="p-3">Course</th>
+                                    <th class="p-3">Attendance</th>
+                                    <th class="p-3">Midterm</th>
+                                    <th class="p-3">Final</th>
+                                    <th class="p-3">Total</th>
+                                    <th class="p-3">Grade</th>
+                                </tr>
+                            </thead>
+                            <tbody id="academics-table">
+                                <!-- Populated by JS -->
+                            </tbody>
+                        </table>
+                        <div class="mt-6 text-right">
+                            <button id="print-transcript-btn" class="bg-blue-600 text-white px-4 py-2 rounded font-bold hover:bg-blue-700">Print Official Transcript</button>
+                        </div>
+                    </div>
+
+                    <!-- Finance Tab -->
+                    <div id="tab-finance" class="tab-content hidden">
+                        <h3 class="font-bold text-gray-700 mb-4">Fee History</h3>
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-gray-50 border-b">
+                                    <th class="p-3">Academic Year</th>
+                                    <th class="p-3">Total Amount</th>
+                                    <th class="p-3">Paid</th>
+                                    <th class="p-3">Balance</th>
+                                    <th class="p-3">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="finance-table">
+                                <!-- Populated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/notifications.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/student-profile.js"></script>
+</body>
+</html>

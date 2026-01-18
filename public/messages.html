@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>សារ - ITC SMS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Battambang:wght@400;700&display=swap" rel="stylesheet">
+    <link href="css/notifications.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Battambang', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="min-h-screen flex flex-col">
+        <header class="bg-blue-600 text-white shadow-lg">
+            <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/f/f7/Institute_of_Technology_of_Cambodia_logo.png?20140922081716" alt="ITC Logo" class="h-12 w-12 bg-white rounded-full p-1">
+                    <div>
+                        <h1 class="text-xl font-bold">វិទ្យាស្ថានបច្ចេកវិទ្យាកម្ពុជា</h1>
+                        <p class="text-sm opacity-90">ប្រព័ន្ធគ្រប់គ្រងទិន្នន័យនិស្សិត</p>
+                    </div>
+                </div>
+                <nav>
+                    <ul class="flex space-x-6">
+                        <li><a href="index.html" class="hover:text-blue-200 transition font-bold">ផ្ទាំងគ្រប់គ្រង</a></li>
+                        <li><a href="students.html" class="hover:text-blue-200 transition font-bold">និស្សិត</a></li>
+                        <li><a href="courses.html" class="hover:text-blue-200 transition font-bold">មុខវិជ្ជា</a></li>
+                        <li><a href="lecturers.html" class="hover:text-blue-200 transition font-bold">សាស្ត្រាចារ្យ</a></li>
+                        <li><a href="schedule.html" class="hover:text-blue-200 transition font-bold">កាលវិភាគ</a></li>
+                        <li><a href="exams.html" class="hover:text-blue-200 transition font-bold">ការប្រឡង</a></li>
+                        <li><a href="assignments.html" class="hover:text-blue-200 transition font-bold">កិច្ចការ</a></li>
+                        <li><a href="attendance.html" class="hover:text-blue-200 transition font-bold">វត្តមាន</a></li>
+                        <li><a href="enrollment.html" class="hover:text-blue-200 transition font-bold">ការចុះឈ្មោះ</a></li>
+                        <li><a href="grades.html" class="hover:text-blue-200 transition font-bold">ពិន្ទុ</a></li>
+                        <li><a href="fees.html" class="hover:text-blue-200 transition font-bold">ហិរញ្ញវត្ថុ</a></li>
+                        <li><a href="messages.html" class="hover:text-blue-200 transition font-bold border-b-2 border-white">សារ</a></li>
+                        <li><a href="documents.html" class="hover:text-blue-200 transition font-bold">ឯកសារ</a></li>
+                        <li><a href="departments.html" class="hover:text-blue-200 transition font-bold">ដេប៉ាតឺម៉ង់</a></li>
+                        <li><a href="settings.html" class="hover:text-blue-200 transition font-bold">ការកំណត់</a></li>
+                        <li><a href="#" id="logout-btn" class="hover:text-red-200 transition font-bold">ចាកចេញ</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <main class="flex-grow container mx-auto px-4 py-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <!-- Sidebar -->
+                <div class="bg-white rounded-lg shadow-md p-4">
+                    <button id="compose-btn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-6">
+                        + សរសេរសារថ្មី
+                    </button>
+                    <ul class="space-y-2">
+                        <li>
+                            <a href="#" id="inbox-link" class="block px-4 py-2 rounded bg-blue-50 text-blue-700 font-bold">ប្រអប់សារ (Inbox)</a>
+                        </li>
+                        <li>
+                            <a href="#" id="sent-link" class="block px-4 py-2 rounded hover:bg-gray-50 text-gray-700 font-bold">សារដែលបានផ្ញើ (Sent)</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Message List -->
+                <div class="md:col-span-3 bg-white rounded-lg shadow-md overflow-hidden min-h-[500px]">
+                    <div class="border-b px-6 py-4">
+                        <h2 id="folder-title" class="text-lg font-bold text-gray-800">ប្រអប់សារ</h2>
+                    </div>
+                    <div id="message-list" class="divide-y">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Compose Modal -->
+    <div id="compose-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden overflow-y-auto h-full w-full z-50">
+        <div class="relative top-20 mx-auto p-5 border w-1/2 shadow-lg rounded-md bg-white">
+            <div class="mt-3">
+                <h3 class="text-lg leading-6 font-bold text-gray-900 mb-4">សរសេរសារថ្មី</h3>
+                <form id="compose-form">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">ទៅកាន់ (Recipient)</label>
+                        <select id="msg-recipient" required class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                            <option value="">ជ្រើសរើសអ្នកទទួល...</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">ប្រធានបទ</label>
+                        <input type="text" id="msg-subject" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">ខ្លឹមសារ</label>
+                        <textarea id="msg-content" rows="6" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
+                    </div>
+                    <div class="flex items-center justify-between mt-6">
+                        <button type="button" id="close-compose-modal" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">បោះបង់</button>
+                        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">ផ្ញើ</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Message View Modal -->
+    <div id="message-view-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden overflow-y-auto h-full w-full z-50">
+        <div class="relative top-20 mx-auto p-5 border w-1/2 shadow-lg rounded-md bg-white">
+            <div class="mt-3">
+                <div class="flex justify-between items-start mb-4">
+                    <h3 id="view-subject" class="text-lg leading-6 font-bold text-gray-900"></h3>
+                    <button id="close-view-modal" class="text-gray-400 hover:text-gray-600">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="mb-4 pb-4 border-b">
+                    <p class="text-sm text-gray-600">
+                        <span class="font-bold">From:</span> <span id="view-from"></span>
+                    </p>
+                    <p class="text-sm text-gray-600">
+                        <span class="font-bold">Date:</span> <span id="view-date"></span>
+                    </p>
+                </div>
+                <div class="mb-4">
+                    <p id="view-content" class="text-gray-700 whitespace-pre-wrap"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/notifications.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/messages.js"></script>
+</body>
+</html>
